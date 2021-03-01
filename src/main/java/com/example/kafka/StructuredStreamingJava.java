@@ -35,15 +35,7 @@ public class StructuredStreamingJava {
         Dataset<Row> result = session.sql("select cast (value as string) as output from viewing_data output");
 
         session.conf().set("spark.sql.shuffle.partitions","10");
-//        StreamingQuery query = result
-//                .writeStream()
-//                .format("console")
-//                .trigger(Trigger.ProcessingTime("60 seconds"))
-//                .outputMode(OutputMode.Complete())
-//                .start();
-        // can be "orc", "json", "csv", etc.
-        // can be "orc", "json", "csv", etc.
-        // can be "orc", "json", "csv", etc.
+
         StreamingQuery query = result.writeStream()
                 .outputMode(OutputMode.Append())
                 .option("checkpointLocation","checkpoints")
@@ -52,9 +44,6 @@ public class StructuredStreamingJava {
                 .trigger(Trigger.ProcessingTime(60000))
                 .option("path", "Data/kafka_batch_output")
                 .start();
-
-        //  .trigger(Trigger.ProcessingTime(80000))
-
 
         query.awaitTermination();
     }

@@ -24,17 +24,8 @@ import org.apache.commons.cli.*;
 
 public class readingTexttoSpark implements Serializable
 {
-    //private static final Pattern SPACE = Pattern.compile(" ");
-
-    @SuppressWarnings("resource")
-
     public static void main(String[] args) {
         Logger.getLogger("org").setLevel(Level.ERROR);
-
-
-
-
-
         // configure spark
         SparkConf sparkConf = new SparkConf().setAppName("StartingSpark ").setMaster("local");
         // start a spark context
@@ -42,38 +33,24 @@ public class readingTexttoSpark implements Serializable
         // read text file to RDD
         JavaRDD<String> lines = sc.textFile(  "file:///C:/Users/rosha/IdeaProjects/Kafka_spark_streaming/Data/inputdemo.txt")   ;// collect RDD for printing
 
-       // lines.flatMap(value -> Arrays.asList(value.split(" ")).iterator());
         JavaRDD<String> letteronly=lines.map(sentence -> sentence.replaceAll("[^a-zA-Z ]"," ").toLowerCase());
 
         JavaRDD<String> justwords=letteronly.flatMap(sentence  -> Arrays.asList(sentence.split(" ")).iterator());
+
         JavaPairRDD<String,Integer> pairRDD=justwords.mapToPair(word -> new Tuple2<String, Integer>(word,1));
+
         JavaPairRDD<String,Integer> totals = pairRDD.reduceByKey((value1,value2)-> value1+ value2);
-        //JavaPairRDD countData = pairRDD.mapToPair(t -> new Tuple2(t, 1)).reduceByKey((x, y) -> (int) x + (int) y);
 
-
-       // pairRDD.coalesce(1);
         totals.foreach(element -> System.out.println(element));
 
-
-       // List <String> result = justwords.take(50);
-       // result.forEach(System.out::println);
-
-        //List <Tuple2<String,Integer>> result =pairRDD.take(20);
-        //result.forEach(System.out::println);
-        //
-         totals.saveAsTextFile("file:///C:/Users/rosha/IdeaProjects/Kafka_spark_streaming/Data/output_agg_data");
-
+        totals.saveAsTextFile("file:///C:/Users/rosha/IdeaProjects/Kafka_spark_streaming/Data/output_agg_data");
 
         sc.close();
 
 
 
     }
-
-    //for(String line:counts.collect()){
-       //    System.out.println(line);
-   // }
-    }
+}
 
 
 

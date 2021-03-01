@@ -36,8 +36,6 @@ public class sparksqlreading {
         Dataset<Row> filterbyoccupation=dataset.filter("gender='female'");
         filterbyoccupation.show();
 
-       //Dataset<Row> filtersecondexample=dataset.filter(column("gender").equalTo("female").and(column("writing score").geq(80)));
-        //filtersecondexample.show();
         spark.close();
     }
 }

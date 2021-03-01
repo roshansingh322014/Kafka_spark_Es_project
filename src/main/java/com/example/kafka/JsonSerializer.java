@@ -7,6 +7,10 @@ import org.apache.kafka.common.serialization.Serializer;
 
 import java.util.Map;
 
+
+/* A default class is written to write a json data into the kafka topic */
+
+
 public class JsonSerializer<T> implements Serializer<T> {
     private final ObjectMapper objectMapper = new ObjectMapper();
     public JsonSerializer(){}
@@ -25,11 +29,6 @@ public class JsonSerializer<T> implements Serializer<T> {
             throw new SerializationException("Error serializing JSON message",e);
         }
     }
-
-//    public byte[] serialize(String topic, Headers headers, T data) {
-//        return new byte[0];
-//    }
-
     public void close() {
 
     }

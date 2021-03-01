@@ -21,7 +21,7 @@ public class sparkDataStream {
         SparkSession spark= SparkSession.builder().appName("writeToElastic").master("local[*]")
                 .getOrCreate();
 
-        // .config("spark.sql.warehouse.dir","file:///c:/tmp/")
+        // .config("spark.sql.warehouse.dir","file:///c:/tmp/")// help to write after the master file is written .
 
         Dataset<Row> dataset=spark.read().option("header",true).csv("Data/student.csv");
         long numberofRows=dataset.count();
