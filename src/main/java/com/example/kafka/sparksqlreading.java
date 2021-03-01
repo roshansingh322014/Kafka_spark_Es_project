@@ -37,8 +37,20 @@ public class sparksqlreading {
         Dataset<Row> filterbyoccupation=dataset.filter("gender='female'");
         filterbyoccupation.show();
 
-       //Dataset<Row> filtersecondexample=dataset.filter(column("gender").equalTo("female").and(column("writing score").geq(80)));
-        //filtersecondexample.show();
+        //Creating the view on the existing table
+        dataset.createOrReplaceTempView("my_student_table");
+
+        // Aggregation method no 1
+        Dataset<Row> result1 = spark.sql("select * from my_student_table where gender='female'");
+        result1.show();
+
+
+        Dataset<Row> result2 = spark.sql("select avg(`math score`),avg(`reading score`),avg(`writing score`) from my_student_table ");
+        result2.show();
+
+        Dataset<Row> result3 = spark.sql("select max(`math score`),max(`reading score`),max(`writing score`) from my_student_table");
+        result3.show();
+
         spark.close();
     }
 }
