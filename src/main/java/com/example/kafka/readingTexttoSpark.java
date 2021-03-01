@@ -47,12 +47,12 @@ public class readingTexttoSpark implements Serializable
 
         JavaRDD<String> justwords=letteronly.flatMap(sentence  -> Arrays.asList(sentence.split(" ")).iterator());
         JavaPairRDD<String,Integer> pairRDD=justwords.mapToPair(word -> new Tuple2<String, Integer>(word,1));
-        //JavaPairRDD<String,Integer> totals = pairRDD.((value1,value2)-> value1+ value2);
+       JavaPairRDD<String,Integer> totals = pairRDD.reduceByKey((value1,value2)-> value1 + value2);
         //JavaPairRDD countData = pairRDD.mapToPair(t -> new Tuple2(t, 1)).reduceByKey((x, y) -> (int) x + (int) y);
 
 
        // pairRDD.coalesce(1);
-        pairRDD.foreach(element -> System.out.println(element));
+        totals.foreach(element -> System.out.println(element));
 
 
        // List <String> result = justwords.take(50);
@@ -60,7 +60,7 @@ public class readingTexttoSpark implements Serializable
 
         //List <Tuple2<String,Integer>> result =pairRDD.take(20);
         //result.forEach(System.out::println);
-      pairRDD.saveAsTextFile("file:///C:/Users/rosha/IdeaProjects/Kafka_spark_streaming/Data/reading_text_data");
+     // pairRDD.saveAsTextFile("file:///C:/Users/rosha/IdeaProjects/Kafka_spark_streaming/Data/reading_text_data");
 
 
         sc.close();

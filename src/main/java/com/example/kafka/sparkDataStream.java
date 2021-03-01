@@ -21,5 +21,7 @@ public class sparkDataStream {
 //        JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(1));
 
 
+
+
     }
 }
