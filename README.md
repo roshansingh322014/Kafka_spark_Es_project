@@ -18,4 +18,17 @@ sparksqlreading.java                                  ---->" this program read a
 
 
 
+2). To see the data which is entered into the elastic search first run the elastic search server on port no 9200 and then run kibana on port no 5601. Then browse to Discover tab to see the entered data .
+
+3). Command to see the data from the dev tools in kibana : GET student/_search
+
+4). The best documentation to read about the spark and elastic search integration : https://www.elastic.co/guide/en/elasticsearch/hadoop/current/spark.html
+
+
+
+
+
+
+
+
 
