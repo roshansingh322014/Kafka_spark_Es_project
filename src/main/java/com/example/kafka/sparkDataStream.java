@@ -14,8 +14,6 @@ public class sparkDataStream {
     public static void main(String[] args) {
         Logger.getLogger("org").setLevel(Level.ERROR);
 
-        SparkConf conf = new SparkConf().setMaster("local[*]").setAppName("NetworkWordCount");
-        JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(1));
 
 
     }
