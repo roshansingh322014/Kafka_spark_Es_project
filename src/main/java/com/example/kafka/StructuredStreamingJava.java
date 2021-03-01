@@ -49,7 +49,7 @@ public class StructuredStreamingJava {
                 .option("checkpointLocation","checkpoints")
                 .format("json")
                 .option("truncate","false")
-                .trigger(Trigger.ProcessingTime(80000))
+                .trigger(Trigger.ProcessingTime(60000))
                 .option("path", "Data/kafka_batch_output")
                 .start();
 
