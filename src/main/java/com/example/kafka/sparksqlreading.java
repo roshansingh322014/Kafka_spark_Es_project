@@ -17,8 +17,9 @@ public class sparksqlreading {
 
         Logger.getLogger("org").setLevel(Level.ERROR);
         SparkSession spark= SparkSession.builder().appName("testingsql").master("local[*]")
-                .config("spark.sql.warehouse.dir","file:///c:/tmp/")
                 .getOrCreate();
+
+        // .config("spark.sql.warehouse.dir","file:///c:/tmp/")
 
         Dataset<Row> dataset=spark.read().option("header",true).csv("Data/student.csv");
         long numberofRows=dataset.count();
